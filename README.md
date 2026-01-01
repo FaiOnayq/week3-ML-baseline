@@ -1,56 +1,56 @@
-# Week 3 — Ship-Ready Baseline ML System (Train + Evaluate + Predict)
+# Model Card — Week 3 Baseline  
 
-Turn a feature table into a **reproducible, CPU-friendly ML baseline** with:
-- a training command that saves versioned artifacts, and
-- a batch prediction command with schema guardrails.
-
-This repo is designed to be:
-- **offline-first** (no external services required),
-- **reproducible** (run metadata + environment capture),
-- **portfolio-ready** (clean structure + model card).
+## Problem  
+- **Target:** `is_high_value` (binary classification)  
+- **Unit of analysis:** Individual user (`user_id`)  
+- **Decision enabled:** Identify high-value users for targeted marketing or promotions  
 
 ---
 
-## Quickstart
-
-### 1) Setup
-```bash
-uv sync
-```
-
-### 2) Create sample data (if needed)
-```bash
-uv run ml-baseline make-sample-data
-```
-
-This writes a small demo feature table to:
-- `data/processed/features.csv` (and `.parquet` if available)
-
-### 3) Train a baseline model
-```bash
-uv run ml-baseline train --target is_high_value
-```
-
-Artifacts are written to:
-- `models/runs/<run_id>/...`
-- `models/registry/latest.txt` points to the most recent run
-
-### 4) Batch predict
-```bash
-uv run ml-baseline predict --run latest --input data/processed/features.csv --output outputs/preds.csv
-```
-
-### 5) Tests
-```bash
-uv run pytest
-```
+## Data  
+- **Feature table:** `data/processed/features.csv`  
+- **Features used:**  
+  - `country` (categorical)  
+  - `n_orders` (integer)  
+  - `avg_amount` (float)  
+  - `total_amount` (float)  
+- **Forbidden columns:** `is_high_value`  
+- **Optional ID column:** `user_id`  
 
 ---
 
-## What you submit
-- working code (`src/`)
-- passing tests (`tests/`)
-- updated `reports/model_card.md` (filled in)
-- updated `reports/eval_summary.md` (filled in)
+## Splits  
+- **Holdout strategy:** Random stratified split  
+- **Test size:** `0.2`  
+- **Random seed:** `42`  
 
-See `architecture.md` for minimum requirements + stretch goals.
+---
+
+## Metrics (Holdout Set)
+
+| Metric       | Baseline | Model |
+|--------------|----------|-------|
+| ROC AUC      | 0.5      | 1.0   |
+| PR AUC       | 0.2      | 1.0   |
+| Accuracy     | 0.8      | 1.0   |
+| Precision    | 0.0      | 1.0   |
+| Recall       | 0.0      | 1.0   |
+| F1 Score     | 0.0      | 1.0   |
+| Threshold    | 0.5      | 0.5   |
+
+> **Critical Note**:  
+> - Baseline performance using LogisticRegression classifier.  
+> - **Model achieves perfect metrics**, indicating **strong evidence of data leakage or overfitting**.  
+
+
+---
+
+## Reproducibility  
+- **Run ID:** `2026-01-01T17-27-09Z__classification__seed42`  
+- **Environment:** `models/runs/2026-01-01T17-27-09Z__classification__seed42/env/pip_freeze.txt`  
+- **Artifacts:**  
+  - `model/model.joblib` — Trained model (joblib)  
+  - `schema/input_schema.json` — Input spec (columns, dtypes, constraints)  
+  - `tables/holdout_predictions.parquet` — Full holdout predictions  
+
+
