@@ -1,21 +1,9 @@
 # Evaluation Summary — Week 3
-
-Fill this in after training a model.
-
-## What you trained
-- Model family:
-- Preprocessing:
-- Key hyperparameters:
-
-## Results
-- Baseline metrics:
-- Holdout metrics:
-- Confidence intervals (optional):
-
-## Error analysis
-- Worst cases:
-- Any obvious leakage?
-- Next data fixes to try:
-
-## Recommendation
-Would you ship this baseline? Why/why not?
+### Model family: LogisticRegression (or RandomForest, etc.)
+### Preprocessing: impute + one-hot (Pipeline)
+### Baseline vs model: holdout metric comparison
+### Error analysis:
+- worst-case examples
+- possible leakage checks
+- next data fixes
+### Recommendation: ship / don’t ship (yet) + rationale
