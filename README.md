@@ -114,4 +114,6 @@ models/runs/<run_id>/tables/holdout_predictions.csv
 
 
 Memo:
-![machine learning](reports/ml.jpg)
+
+<img src="reports/ml.jpg" alt="Sample Image" width="400" height="300">
+
