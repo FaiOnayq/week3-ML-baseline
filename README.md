@@ -39,7 +39,7 @@ uv run ml-baseline train --target is_high_value
 
 3. Make Predictions
 ```
-uv run ml-baseline predict --run latest --input data/processed/features.csv --output outputs/preds.csv
+uv run ml-baseline predict --run latest --input data/processed/features_pred.csv --output outputs/preds.csv
 ```
 Parameters:
 
